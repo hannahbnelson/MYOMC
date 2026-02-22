@@ -173,7 +173,7 @@ done
             if args.keepwmLHE:
                 run_script.write("xrdcp -p -f *wmLHE*root {}/{} \n".format(eos_prefix, args.outEOS))
             if args.keepGEN: 
-                run_script.write("xrdcp -p -f *GEN*root {}/{} \n".format(eos_prefix, args.outEOS))
+                run_script.write("xrdcp -p -f GEN-00000.root {}/{} \n".format(eos_prefix, args.outEOS))
         elif args.outcp:
             run_script.write("mkdir -pv {} \n".format(args.outcp))
             if args.keepNANOGEN:

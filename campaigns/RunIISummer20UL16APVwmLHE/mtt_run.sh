@@ -38,7 +38,7 @@ fi
 
 RSEED=$((JOBINDEX * 4 + 1001)) # Space out seeds; Madgraph concurrent mode adds idx(thread) to random seed
 
-echo "Fragment=$FRAGMENT"
+echo "Fragment=$CONFIG"
 echo "Job name=$NAME"
 echo "NEvents=$NEVENTS"
 echo "Random seed=$RSEED"
@@ -48,13 +48,13 @@ TOPDIR=$PWD
 # wmLHE
 export SCRAM_ARCH=slc7_amd64_gcc700
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-if [ -r CMSSW_10_6_40/src ] ; then 
-    echo release CMSSW_10_6_40 already exists
-    cd CMSSW_10_6_40/src
+if [ -r CMSSW_10_6_42/src ] ; then 
+    echo release CMSSW_10_6_42 already exists
+    cd CMSSW_10_6_42/src
     eval `scram runtime -sh`
 else
-    scram project -n "CMSSW_10_6_40" CMSSW_10_6_40
-    cd CMSSW_10_6_40/src
+    scram project -n "CMSSW_10_6_42" CMSSW_10_6_42
+    cd CMSSW_10_6_42/src
     eval `scram runtime -sh`
 fi
 
@@ -62,7 +62,8 @@ cd $CMSSW_BASE/src
 scram b
 cd $TOPDIR
 
-cmsRun $FRAGMENT 
+echo $CONFIG
+cmsRun $CONFIG
 if [ ! -f "GEN-00000.root" ]; then
     echo "GEN-00000.root not found. Exiting."
     return 1
